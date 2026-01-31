@@ -105,5 +105,169 @@ header{
 }
 
 .day{
-    
+    background: #FFF;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    min-height: 100px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    position: relative;
+    cursor: pointer;
+    transition: background .2s ease;
+}
+
+.day:hover{
+    background: #f3f4f6;
+}
+
+.day.today{
+    background: var(--primary-light);
+    border-color: var(--primary-dark);
+}
+
+.date-number{
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.event{
+    background-color: var(--primary);
+    color: white;
+    padding: 3px 6px;
+    border-radius: 4px;
+    margin-top: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform .2s ease;
+}
+
+.event:hover{
+    transform: scale(1.03);
+}
+
+/* Alert Box */
+
+.alert{
+    max-width: 600px;
+    margin: 1rem auto;
+    padding: 1rem;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.success{
+    background: var(--success);
+    color: var(--success-text);
+}
+
+.error{
+    background: var(--error);
+    color: var(--error-text);
+}
+
+/* Modal POPUP */
+
+.modal{
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.modal-content{
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content label{
+    display: block;
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: 6px;
+}
+
+.modal-content input{
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.modal-content button{
+    margin-top: 1rem;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.modal-content button[tybe="submit"]{
+    background-color: var(--primary);
+    color: white;
+}
+
+.submit-btn{
+    background-color: crimson;
+    color: #FFF;
+}
+
+.modal-content button:last-child{
+    background-color: #e5e7eb;
+    color: #333;
+}
+
+/* DropDown Menu for multiable events*/
+
+#eventSelector{
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* overlay button CSS Logic */
+
+.day-overlay{
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 2;
+}
+
+.day:hover .day-overlay{
+    display: flex;
+}
+
+.overlay-btn{
+    background: var(--primary-dark);
+    color: white;
+    padding: 4px 8px;
+    font-size: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background .2s ease;
+}
+
+.overlay-btn:hover{
+    background: var(--primary);
 }
