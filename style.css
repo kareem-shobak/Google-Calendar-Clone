@@ -1,0 +1,109 @@
+:root{
+    --primary: #3B82F6;
+    --primary-light: #DBEAFE;
+    --primary-dark: #1E3A8A;
+    --background: #F9FaFB;
+    --success: #d1fae5;
+    --success-text: #065f46;
+    --error: #fee2e2;
+    --error-text: #b91c1c;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: "Inter", sans-serif;
+    background-color: var(--background);
+    color: #333;
+    line-height: 1.6;
+}
+
+header{
+    background-color: var(--primary);
+    color: white;
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+/* Clock */
+
+.clock-container{
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 1rem;
+    text-align: center;
+    font-family: "Inter", sans-serif;
+    letter-spacing: 2px;
+    border-bottom: 2px solid var(--primary);
+}
+
+@media (max-width: 768px){
+    .clock-container{
+        font-size: 1.4rem;
+        padding: 0.75rem;
+    }
+}
+
+/* Calendar Container */
+
+.calendar{
+    max-width: 1000px;
+    margin: 2rem auto;
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-btn-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.nav-btn{
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--primary-dark);
+}
+
+.calendar-grid{
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    gap: 10px;
+}
+
+/* mobile (grid) */
+
+@media (max-width:1024px){
+    .calendar-grid{
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 10px;
+    }
+
+    .day, .day-name{
+        min-width: 140px;
+        flex-shrink: 0;
+        scroll-snap-align: start;
+    }
+}
+
+.day, .day-name{
+        text-align: center;
+}
+
+.day{
+    
+}
