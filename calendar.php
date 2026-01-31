@@ -1,24 +1,27 @@
 <?php
 
-require 'calendar.php';
+require 'connection.php';
 
 $successMsg = '';
 $errorMsg = '';
 $eventsFromDb = []; // to store fetched events from db
 
 // Handle Add Appointment
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] ?? '' === 'add') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'add') {
     $courseName = trim($_POST['course_name'] ?? '');
     $instructorName = trim($_POST['instructor_name'] ?? '');
     $startDate = $_POST['start_date'] ?? '';
     $endDate = $_POST['end_date'] ?? '';
+    $startTime   = $_POST["start_time"] ?? '';
+    $endTime     = $_POST["end_time"] ?? '';
 
     if ($courseName && $instructorName && $startDate && $endDate) {
         $stmt = $connection->prepare(
-            "INSERT INTO `appointment` (course_name,instructor_name,start_date,end_date) VALUES (?,?,?,?)"
+            "INSERT INTO appointment (course_name, instructor_name, start_date, end_date, start_time, end_time) 
+             VALUES (?, ?, ?, ?, ?, ?)"
         );
 
-        $stmt->bind_param("ssss", $courseName, $instructorName, $startDate, $endDate);
+        $stmt->bind_param("ssssss", $courseName, $instructorName, $startDate, $endDate, $startTime, $endTime);
 
         $stmt->execute();
 
@@ -33,19 +36,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] ?? '' === 'add') {
 }
 
 // Handle Edit Appointment
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] ?? '' === 'edit') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'edit') {
     $courseId = $_POST['event_id'] ?? null;
     $courseName = trim($_POST['course_name'] ?? '');
     $instructorName = trim($_POST['instructor_name'] ?? '');
     $startDate = $_POST['start_date'] ?? '';
     $endDate = $_POST['end_date'] ?? '';
+    $startTime   = $_POST["start_time"] ?? '';
+    $endTime     = $_POST["end_time"] ?? '';
 
-    if ($courseId && $courseName && $instructorName && $startDate && $endDate) {
+    if ($courseId && $courseName && $instructorName && $startDate && $endDate && $startTime && $endTime && $startTime && $endTime) {
         $stmt = $connection->prepare(
-            "UPDATE `appointment` SET course_name = ?,instructor_name = ?, start_date = ?,end_date = ?"
+            "UPDATE appointment SET course_name = ?, instructor_name = ?, start_date = ?, end_date = ?, start_time = ?, end_time = ? 
+             WHERE id = ?"
         );
 
-        $stmt->bind_param("ssssi", $courseName, $instructorName, $startDate, $endDate, $courseId);
+        $stmt->bind_param("ssssssi", $courseName, $instructorName, $startDate, $endDate, $startTime, $endTime, $courseId);
 
         $stmt->execute();
 
@@ -61,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] ?? '' === 'edit') 
 
 // Handle Delete Appointment
 
-if ($_SERVER['REQUEST_METHOD'] === "POST" && $_POST['action'] ?? '' === 'delete') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delete') {
     $courseId = $_POST['event_id'] ?? null;
 
     if ($courseId) {
@@ -101,6 +107,10 @@ $result = $connection->query("SELECT * FROM `appointment`");
 
 if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
+        if (empty($row['start_date']) || empty($row['end_date'])) {
+    continue; // متحسبش الحدث ده أصلاً
+    }
+
         $start = new DateTime($row['start_date']);
         $end = new DateTime($row['end_date']);
 
@@ -110,7 +120,9 @@ if ($result && $result->num_rows > 0) {
                 'title' => "{$row['course_name']} - {$row['instructor_name']}",
                 'date' => $start->format('Y-m-d'),
                 'start' => $row['start_date'],
-                'end' => $row['end_date']
+                'end' => $row['end_date'],
+                'start_time'  => $row['start_time'],
+                'end_time'    => $row['end_time'],
             ]; 
 
             $start->modify('+1 day');
