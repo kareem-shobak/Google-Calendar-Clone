@@ -1,4 +1,8 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 
 require 'connection.php';
 
@@ -15,13 +19,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'add')
     $startTime   = $_POST["start_time"] ?? '';
     $endTime     = $_POST["end_time"] ?? '';
 
+    $userId = $_SESSION['user_id'];
+
     if ($courseName && $instructorName && $startDate && $endDate) {
         $stmt = $connection->prepare(
-            "INSERT INTO appointment (course_name, instructor_name, start_date, end_date, start_time, end_time) 
-             VALUES (?, ?, ?, ?, ?, ?)"
+            "INSERT INTO appointment (user_id,course_name, instructor_name, start_date, end_date, start_time, end_time) 
+             VALUES (?,?, ?, ?, ?, ?, ?)"
         );
 
-        $stmt->bind_param("ssssss", $courseName, $instructorName, $startDate, $endDate, $startTime, $endTime);
+        $stmt->bind_param("issssss", $userId,$courseName, $instructorName, $startDate, $endDate, $startTime, $endTime);
 
         $stmt->execute();
 
@@ -47,11 +53,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'edit'
 
     if ($courseId && $courseName && $instructorName && $startDate && $endDate && $startTime && $endTime && $startTime && $endTime) {
         $stmt = $connection->prepare(
-            "UPDATE appointment SET course_name = ?, instructor_name = ?, start_date = ?, end_date = ?, start_time = ?, end_time = ? 
-             WHERE id = ?"
+            "UPDATE appointment
+    SET course_name=?, instructor_name=?, start_date=?, end_date=?, start_time=?, end_time=?
+    WHERE id=? AND user_id=?"
         );
 
-        $stmt->bind_param("ssssssi", $courseName, $instructorName, $startDate, $endDate, $startTime, $endTime, $courseId);
+        $stmt->bind_param("ssssssii", $courseName, $instructorName, $startDate, $endDate, $startTime, $endTime, $courseId,$userId);
 
         $stmt->execute();
 
@@ -72,10 +79,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delet
 
     if ($courseId) {
         $stmt = $connection->prepare(
-            "DELETE FROM `appointment` WHERE id = ?"
+            "DELETE FROM appointment WHERE id=? AND user_id=?"
         );
 
-        $stmt->bind_param("i", $courseId);
+        $stmt->bind_param("ii", $courseId,$userId);
 
         $stmt->execute();
 
@@ -103,12 +110,13 @@ if (isset($_GET['error'])) {
 }
 
 // Fetch All Appinments and spread it over date range
-$result = $connection->query("SELECT * FROM `appointment`");
+$userId = $_SESSION['user_id'];
+$result = $connection->query("SELECT * FROM `appointment` WHERE user_id = $userId");
 
 if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         if (empty($row['start_date']) || empty($row['end_date'])) {
-    continue; // متحسبش الحدث ده أصلاً
+    continue; 
     }
 
         $start = new DateTime($row['start_date']);

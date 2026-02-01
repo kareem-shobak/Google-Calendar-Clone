@@ -1,4 +1,4 @@
-:root{
+:root {
     --primary: #3B82F6;
     --primary-light: #DBEAFE;
     --primary-dark: #1E3A8A;
@@ -9,29 +9,75 @@
     --error-text: #b91c1c;
 }
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
+body {
     font-family: "Inter", sans-serif;
     background-color: var(--background);
     color: #333;
     line-height: 1.6;
 }
 
-header{
+header {
     background-color: var(--primary);
     color: white;
     padding: 2rem 1rem;
     text-align: center;
+    display: flex;
+    justify-content: space-around;
+}
+
+header h1 {
+    padding: 18px;
+}
+
+/* Logout Button */
+
+.logout-wrapper {
+    padding: 20px;
+}
+
+/* The actual button style */
+.logout-btn {
+    display: inline-block;
+    padding: 10px 24px;
+    background-color: #ff4757;
+    /* A clean red color */
+    color: #ffffff;
+    text-decoration: none;
+    /* Removes the underline */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 8px;
+    /* Rounded corners */
+    transition: all 0.3s ease;
+    /* Smooth transition for hover effects */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover effect (when the mouse is over it) */
+.logout-btn:hover {
+    background-color: #ff6b81;
+    /* Slightly lighter red */
+    box-shadow: 0 6px 12px rgba(255, 71, 87, 0.3);
+    transform: translateY(-2px);
+    /* Lifts the button slightly */
+}
+
+/* Active effect (when clicked) */
+.logout-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Clock */
 
-.clock-container{
+.clock-container {
     background-color: var(--primary-light);
     color: var(--primary-dark);
     font-size: 2rem;
@@ -43,8 +89,8 @@ header{
     border-bottom: 2px solid var(--primary);
 }
 
-@media (max-width: 768px){
-    .clock-container{
+@media (max-width: 768px) {
+    .clock-container {
         font-size: 1.4rem;
         padding: 0.75rem;
     }
@@ -52,7 +98,7 @@ header{
 
 /* Calendar Container */
 
-.calendar{
+.calendar {
     max-width: 1000px;
     margin: 2rem auto;
     background-color: white;
@@ -61,14 +107,14 @@ header{
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.nav-btn-container{
+.nav-btn-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
 }
 
-.nav-btn{
+.nav-btn {
     font-size: 1.5rem;
     background: none;
     border: none;
@@ -76,16 +122,16 @@ header{
     color: var(--primary-dark);
 }
 
-.calendar-grid{
+.calendar-grid {
     display: grid;
-    grid-template-columns: repeat(7,1fr);
+    grid-template-columns: repeat(7, 1fr);
     gap: 10px;
 }
 
 /* mobile (grid) */
 
-@media (max-width:1024px){
-    .calendar-grid{
+@media (max-width:1024px) {
+    .calendar-grid {
         display: flex;
         flex-wrap: nowrap;
         overflow-x: auto;
@@ -93,18 +139,20 @@ header{
         gap: 10px;
     }
 
-    .day, .day-name{
+    .day,
+    .day-name {
         min-width: 140px;
         flex-shrink: 0;
         scroll-snap-align: start;
     }
 }
 
-.day, .day-name{
-        text-align: center;
+.day,
+.day-name {
+    text-align: center;
 }
 
-.day{
+.day {
     background: #FFF;
     border: 1px solid #e5e7eb;
     border-radius: 6px;
@@ -118,21 +166,21 @@ header{
     transition: background .2s ease;
 }
 
-.day:hover{
+.day:hover {
     background: #f3f4f6;
 }
 
-.day.today{
+.day.today {
     background: var(--primary-light);
     border-color: var(--primary-dark);
 }
 
-.date-number{
+.date-number {
     font-weight: bold;
     margin-bottom: 5px;
 }
 
-.event{
+.event {
     background-color: var(--primary);
     color: white;
     padding: 6px 8px;
@@ -148,7 +196,7 @@ header{
     transition: transform 0.15s ease;
 }
 
-.event:hover{
+.event:hover {
     transform: scale(1.02);
 }
 
@@ -176,7 +224,7 @@ header{
 
 /* Alert Box */
 
-.alert{
+.alert {
     max-width: 600px;
     margin: 1rem auto;
     padding: 1rem;
@@ -185,19 +233,19 @@ header{
     font-weight: bold;
 }
 
-.success{
+.success {
     background: var(--success);
     color: var(--success-text);
 }
 
-.error{
+.error {
     background: var(--error);
     color: var(--error-text);
 }
 
 /* Modal POPUP */
 
-.modal{
+.modal {
     position: fixed;
     inset: 0;
     display: none;
@@ -207,7 +255,7 @@ header{
     z-index: 9999;
 }
 
-.modal-content{
+.modal-content {
     background-color: white;
     padding: 2rem;
     border-radius: 10px;
@@ -216,14 +264,14 @@ header{
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-.modal-content label{
+.modal-content label {
     display: block;
     font-weight: bold;
     margin-top: 1rem;
     margin-bottom: 6px;
 }
 
-.modal-content input{
+.modal-content input {
     width: 100%;
     padding: 10px;
     font-size: 1rem;
@@ -231,7 +279,7 @@ header{
     border-radius: 5px;
 }
 
-.modal-content button{
+.modal-content button {
     margin-top: 1rem;
     padding: 10px;
     width: 100%;
@@ -241,24 +289,24 @@ header{
     cursor: pointer;
 }
 
-.modal-content button[tybe="submit"]{
+.modal-content button[tybe="submit"] {
     background-color: var(--primary);
     color: white;
 }
 
-.submit-btn{
+.submit-btn {
     background-color: crimson;
     color: #FFF;
 }
 
-.modal-content button:last-child{
+.modal-content button:last-child {
     background-color: #e5e7eb;
     color: #333;
 }
 
 /* DropDown Menu for multiable events*/
 
-#eventSelector{
+#eventSelector {
     width: 100%;
     padding: 10px;
     font-size: 1rem;
@@ -270,7 +318,7 @@ header{
 
 /* overlay button CSS Logic */
 
-.day-overlay{
+.day-overlay {
     position: absolute;
     top: 6px;
     right: 6px;
@@ -280,11 +328,11 @@ header{
     z-index: 2;
 }
 
-.day:hover .day-overlay{
+.day:hover .day-overlay {
     display: flex;
 }
 
-.overlay-btn{
+.overlay-btn {
     background: var(--primary-dark);
     color: white;
     padding: 4px 8px;
@@ -295,6 +343,6 @@ header{
     transition: background .2s ease;
 }
 
-.overlay-btn:hover{
+.overlay-btn:hover {
     background: var(--primary);
 }

@@ -145,11 +145,7 @@ function openModalForEdit(eventsOnDate) {
     selector.appendChild(option);
   });
 
-  if (eventsOnDate.length > 1) {
-    wrapper.style.display = "block";
-  } else {
-    wrapper.style.display = "none";
-  }
+  wrapper.style.display = eventsOnDate.length > 1 ? "block" : "none";
 
   handleEventSelection(JSON.stringify(eventsOnDate[0]));
 }
@@ -193,7 +189,23 @@ function updateClock() {
   ].join(":");
 }
 
+// ✅ Flash Message Auto-hide
+function handleFlashMessages() {
+  const flash = document.getElementById("flashMessage");
+  if (flash) {
+    setTimeout(() => {
+      flash.remove();
+      // إزالة query من URL بعد عرض الرسالة
+      const url = new URL(window.location);
+      url.searchParams.delete("success");
+      url.searchParams.delete("error");
+      window.history.replaceState({}, document.title, url.pathname);
+    }, 3000); // 3 ثواني
+  }
+}
+
 // 🚀 Run on Page Load
 renderCalendar(currentDate);
 updateClock();
 setInterval(updateClock, 1000);
+handleFlashMessages();
