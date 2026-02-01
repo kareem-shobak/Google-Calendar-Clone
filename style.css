@@ -23,57 +23,52 @@ body {
 }
 
 header {
-    background-color: var(--primary);
-    color: white;
-    padding: 2rem 1rem;
-    text-align: center;
     display: flex;
-    justify-content: space-around;
+    align-items: center;       /* محاذاة عمودية للعنصر */
+    justify-content: space-between;  /* يوزع العناصر بين اليسار واليمين */
+    padding: 2rem 1rem;
+    background-color: #3b82f6; /* اللون الأزرق اللي اتفقنا عليه */
+    color: white;
+
 }
 
 header h1 {
-    padding: 18px;
+    margin: 0;
+    text-align: center;
+    flex: 1; /* يشغل المساحة المتاحة */
+    font-size: 24px;
 }
 
-/* Logout Button */
+.left-space {
+    width: 100px; /* مساحة فارغة على الشمال */
+}
 
 .logout-wrapper {
-    padding: 20px;
+    /* لا حاجة لتعديل إضافي إذا استخدمنا space-between */
 }
 
-/* The actual button style */
 .logout-btn {
-    display: inline-block;
-    padding: 10px 24px;
-    background-color: #ff4757;
-    /* A clean red color */
-    color: #ffffff;
     text-decoration: none;
-    /* Removes the underline */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: 600;
-    font-size: 16px;
+    color: white;
+    font-weight: bold;
+    padding: 8px 12px;
+    border: 2px solid white;
     border-radius: 8px;
-    /* Rounded corners */
-    transition: all 0.3s ease;
-    /* Smooth transition for hover effects */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s, color 0.3s;
 }
 
-/* Hover effect (when the mouse is over it) */
 .logout-btn:hover {
-    background-color: #ff6b81;
-    /* Slightly lighter red */
-    box-shadow: 0 6px 12px rgba(255, 71, 87, 0.3);
-    transform: translateY(-2px);
-    /* Lifts the button slightly */
+    background: white;
+    color: #ff0000;
 }
 
-/* Active effect (when clicked) */
-.logout-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.user-name {
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 3.2px;
 }
+
+
 
 /* Clock */
 

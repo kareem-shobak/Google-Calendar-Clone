@@ -28,18 +28,17 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 <body>
     <header>
-        <div>
-            <a></a>
-        </div>
+    <div class="user-name">
+        <?= htmlspecialchars($_SESSION['user_name'] ?? 'Guest') ?>
+    </div>
 
-        <h1>
-            Calendar Project
-        </h1>
+    <h1>Calendar Project</h1>
 
-        <div class="logout-wrapper">
-            <a href="/auth/logout.php" class="logout-btn">Logout</a>
-        </div>
-    </header>   
+    <div class="logout-wrapper">
+        <a href="/auth/logout.php" class="logout-btn">Logout</a>
+    </div>
+</header>
+
 
         <!-- ✅ Success / Error Messages -->
     <?php if ($successMsg): ?>
