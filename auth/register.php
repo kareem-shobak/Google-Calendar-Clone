@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_id']   = $stmt->insert_id;
             $_SESSION['user_name'] = $name;
 
-            header("Location: ../index.php");
+            header("Location: login.php");
             exit;
         }
 

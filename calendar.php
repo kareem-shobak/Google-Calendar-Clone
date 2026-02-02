@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'edit'
     $endDate = $_POST['end_date'] ?? '';
     $startTime   = $_POST["start_time"] ?? '';
     $endTime     = $_POST["end_time"] ?? '';
-
+    $userId = $_SESSION['user_id']; 
     if ($courseId && $courseName && $instructorName && $startDate && $endDate && $startTime && $endTime && $startTime && $endTime) {
         $stmt = $connection->prepare(
             "UPDATE appointment
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'edit'
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delete') {
     $courseId = $_POST['event_id'] ?? null;
-
+    $userId = $_SESSION['user_id'];
     if ($courseId) {
         $stmt = $connection->prepare(
             "DELETE FROM appointment WHERE id=? AND user_id=?"

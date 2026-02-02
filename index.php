@@ -29,7 +29,7 @@ if (!isset($_SESSION['user_id'])) {
 <body>
     <header>
     <div class="user-name">
-        <?= htmlspecialchars($_SESSION['user_name'] ?? 'Guest') ?>
+        <?= htmlspecialchars($_SESSION['user_name']) ?>
     </div>
 
     <h1>Calendar Project</h1>
